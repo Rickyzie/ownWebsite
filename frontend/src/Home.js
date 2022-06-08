@@ -1,13 +1,11 @@
-import React from "react";
-import { Container } from "react-bootstrap";
 import Header from "./components/Header";
-import Slider from "./components/Slider";
+import Main from "./components/Main";
 
 function Home() {
   return (
     <>
       <Header />
-      <Slider />
+      <Main />
     </>
   );
 }

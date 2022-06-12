@@ -2,6 +2,9 @@ import {Container, Form,Button} from "react-bootstrap"
 import { useForm } from "react-hook-form";
 import axios from "axios"
 import Header from "./components/Header";
+import Footer from "./components/Footer";
+import Embed from "./components/Embed";
+
 function Feature() {
     const { register, handleSubmit } = useForm();
     const postSubmit = async (data) => {
@@ -21,13 +24,14 @@ function Feature() {
                 </Form.Group>
                  <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
                     <Form.Label>textarea</Form.Label>
-                    <Form.Control {...register("textarea")} as="textarea" rows={3}  placeholder="textarea" />
+                    <Form.Control style={{height:"960px"}} {...register("textarea")} as="textarea" rows={3}  placeholder="textarea" />
                 </Form.Group>
                 <Button variant="primary" type="submit" >
                     Submit
                 </Button>
             </Form>
         </Container>
+        <Footer />
         </>
     );
   }

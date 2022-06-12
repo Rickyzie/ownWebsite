@@ -19,7 +19,6 @@ async function dataCursor() {
     return allValues
   }catch(err){console.log(err)} 
 }
-dataCursor().then(x=>console.log(x))
 
 app.post('/api/store',async (req, res) => {
   try{

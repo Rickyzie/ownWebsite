@@ -30,7 +30,7 @@ function Main() {
         <Container  fluid style={{marginRight:"0px",marginLeft:"0px",padding:0}}>
             <Row style={{height:"100vh",marginTop:"20px"}} >
                 <Col xs={1} sm={1} xxl={1}></Col>
-                <Col xs={10} sm={10} xxl={9}>
+                <Col xs={12} sm={10} xxl={9} style={{padding:0}}>
                     {texts.map((text)=>{
                         return <Article key={text._id} text={text} />
                     })}

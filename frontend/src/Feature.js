@@ -3,7 +3,6 @@ import { useForm } from "react-hook-form";
 import axios from "axios"
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import Embed from "./components/Embed";
 
 function Feature() {
     const { register, handleSubmit } = useForm();
@@ -18,6 +17,15 @@ function Feature() {
         <Header />
         <Container>
             <Form onSubmit={handleSubmit(data=>postSubmit(data))}>
+                <Form.Select {...register("select")} aria-label="Default select example">
+                    <option>select category</option>
+                    <option value="html">Html</option>
+                    <option value="css">Css</option>
+                    <option value="javascript">Javascript</option>
+                    <option value="nodejs">Nodejs</option>
+                    <option value="react">React</option>
+                    <option value="mongodb">Mongodb</option>
+                </Form.Select>
                 <Form.Group className="mb-3" >
                     <Form.Label>title</Form.Label>
                     <Form.Control {...register("title")}  placeholder="title" />

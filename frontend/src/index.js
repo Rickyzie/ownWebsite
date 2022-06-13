@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import Home from './Home';
+import Detail from './components/Detail';
 import Feature from './Feature';
 import reportWebVitals from './reportWebVitals';
 import './bootstrap.min.css';
@@ -17,7 +18,8 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />}/>
-          <Route path="/feature" element={<Feature />}/>
+        <Route path="/feature" element={<Feature />}/>
+        <Route path="/Article/:id" element={<Detail/>} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

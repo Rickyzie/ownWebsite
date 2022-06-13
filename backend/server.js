@@ -37,6 +37,15 @@ app.get("/api/data", (req,res) => {
   }catch(err){console.log(err)} 
 })
 
+app.get("/api/Detail/:id",(req,res)=>{
+  dataCursor().then(val=>{
+    const found = val.find(x=>x._id.toString()===req.params.id);
+    found?res.send(found):res.send("not found");
+  });
+
+});
+
+
 const port = process.env.PORT || 5000;
 
 app.listen(port,()=>{

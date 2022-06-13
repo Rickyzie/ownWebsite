@@ -1,5 +1,4 @@
 import Frame from 'react-frame-component';
-import { useEffect, useState } from "react";
 
 
 function Embed(props) {
@@ -10,12 +9,10 @@ function Embed(props) {
                     <html>
                         <head>
                         </head>
-                        <body style=>
-                    ${props.src}
+                        <body>
+                            ${props.src}
                         </body>
                     </html>`}/>
-                    <div>
-            </div>
         </div>
     );
   }

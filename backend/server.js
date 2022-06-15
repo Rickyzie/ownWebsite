@@ -20,6 +20,19 @@ async function dataCursor() {
   }catch(err){console.log(err)} 
 }
 
+async function dataSearch(str) {
+  try {
+    await client.connect();
+    let regex = new RegExp(str, 'g')
+    console.log(str)
+    const database = client.db('myWebsite');
+    const data = database.collection('text');
+    const cursor = data.find({textarea : regex })
+    const allValues = await cursor.toArray()
+    return allValues
+  }catch(err){console.log(err)} 
+}
+
 app.post('/api/store',async (req, res) => {
   try{
     await client.connect();
@@ -44,6 +57,16 @@ app.get("/api/Detail/:id",(req,res)=>{
   });
 
 });
+
+app.get("/api/search/",(req,res)=>{
+  dataSearch(req.query.search).then(val=>{
+    console.log(val)
+    //const found = val.find(x=>x._id.toString()===req.params.id);
+    //found?res.send(found):res.send("not found");
+  });
+
+});
+
 
 
 const port = process.env.PORT || 5000;

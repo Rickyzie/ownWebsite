@@ -5,6 +5,7 @@ import {Container,Row,Col,Dropdown,ButtonToolbar,ButtonGroup,Button,Form} from "
 import Article from "./Article";
 import { useForm } from "react-hook-form";
 import LoadingBox from "./LoadingBox";
+import Embed from "./Embed";
 
 
 function Main() {
@@ -117,7 +118,7 @@ function Main() {
                 </Col>
                 {resizeTwo?<Col xxl={2}><Intro /></Col>:<Col xs={1} sm={1}></Col>}
             </Row>
-            <div ></div>
+          <Embed />
             </Container>
     );
   }

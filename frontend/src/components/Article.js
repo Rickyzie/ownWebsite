@@ -5,13 +5,20 @@ function Article(props) {
     const {text}=props
     return (
         <div>
-        <Card>
-            <Card.Header>{text.select}</Card.Header>
-            <Card.Body style={{height:"auto"}}>
-                <Card.Title>{text.title}</Card.Title>
-                <Button href ={`/Article/${text._id}`} variant="primary">More...</Button>
-            </Card.Body>
-        </Card>
+            {text.title==="notFound"?
+            <Card>
+                <Card.Body style={{height:"auto"}}>
+                    <Card.Title>{text.title}</Card.Title>
+                </Card.Body>
+            </Card>
+            :<Card>
+                <Card.Header>{text.select}</Card.Header>
+                <Card.Body style={{height:"auto"}}>
+                    <Card.Title>{text.title}</Card.Title>
+                    <Button href ={`/Article/${text._id}`} variant="primary">More...</Button>
+                </Card.Body>
+            </Card>
+            }
         </div>
     );
   }

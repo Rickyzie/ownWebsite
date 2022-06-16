@@ -65,7 +65,8 @@ app.post('/api/store',async (req, res) => {
 app.get("/api/data", (req,res) => {
   try {
     console.log(req.query)
-    dataTag(req.query).then(x=>res.send(x))
+    dataTag(req.query).then(val=>{
+      val.length>0?res.send(val):res.send(notFoundList)})
   }catch(err){console.log(err)} 
 })
 

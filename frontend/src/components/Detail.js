@@ -11,7 +11,7 @@ function Detail() {
     const { id } = useParams();
     const [ texts , setTexts ] = useState({})
     const [loading,setLoading] = useState(true)
-    const regex = /<script.+<\/script>/
+    const regex = /Rickyzie.+/
 
    
     useEffect(()=>{

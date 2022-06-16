@@ -1,18 +1,15 @@
 import Frame from 'react-frame-component';
-
+import ReactEmbedGist from 'react-embed-gist';
+import LoadingBox from './LoadingBox';
 
 function Embed(props) {
+    console.log(props.src)
     return (
         <div >
-            <Frame  style={{width:"100%",height:"100%"}} initialContent={`
-                    <!DOCTYPE html>
-                    <html>
-                        <head>
-                        </head>
-                        <body>
-                            ${props.src}
-                        </body>
-                    </html>`}/>
+             <ReactEmbedGist
+            gist="Rickyzie/8677c26e5cf97ad2ed4e2735ccd6f77d"
+            loadingFallback={<LoadingBox />}
+            /> 
         </div>
     );
   }

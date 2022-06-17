@@ -118,7 +118,6 @@ function Main() {
                 </Col>
                 {resizeTwo?<Col xxl={2}><Intro /></Col>:<Col xs={1} sm={1}></Col>}
             </Row>
-          <Embed />
             </Container>
     );
   }

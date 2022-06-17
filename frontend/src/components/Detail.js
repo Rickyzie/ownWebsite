@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import {Card} from "react-bootstrap"
+import {Card, Container} from "react-bootstrap"
 import {useParams} from "react-router-dom";
 import Embed from "./Embed";
 import Header from "./Header"
@@ -26,7 +26,7 @@ function Detail() {
       getData();
     },[])
     return (
-      <div>
+      <Container>
       <Header />
       <Card>
           <Card.Header>{texts.select}</Card.Header>
@@ -49,7 +49,7 @@ function Detail() {
               </Card.Text>
           </Card.Body>
       </Card>
-      </div>
+      </Container>
   );}
 
   export default Detail;

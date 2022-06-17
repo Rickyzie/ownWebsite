@@ -5,9 +5,9 @@ import LoadingBox from './LoadingBox';
 function Embed(props) {
     console.log(props.src)
     return (
-        <div >
+        <div style={{maxWidth:"600px"}}>
              <ReactEmbedGist
-            gist="Rickyzie/8677c26e5cf97ad2ed4e2735ccd6f77d"
+            gist={props.src}
             loadingFallback={<LoadingBox />}
             /> 
         </div>

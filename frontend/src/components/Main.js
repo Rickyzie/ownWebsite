@@ -5,13 +5,12 @@ import {Container,Row,Col,Dropdown,ButtonToolbar,ButtonGroup,Button,Form} from "
 import Article from "./Article";
 import { useForm } from "react-hook-form";
 import LoadingBox from "./LoadingBox";
-import Embed from "./Embed";
-
 
 function Main() {
     const [numbers , setNumbers]=useState([]);
     const [pages , setPages]=useState([]);
     const [page , setPage]=useState(0);
+    const [tag , setTage]=useState("");
     const [loading,setLoading] = useState(true);
     const { register, handleSubmit } = useForm();
     const [resizeTwo , setResizeTwo] = useState(false);
@@ -38,6 +37,7 @@ function Main() {
             dataPages.push(data.slice(i,i+6));
          };
          setPages(dataPages);
+         setTage(obj.select)
          const numbers = [];
          for (let i = 0; i <Math.ceil(data.length/6); i += 1) {
            numbers.push(i);
@@ -88,7 +88,7 @@ function Main() {
 
                     <Dropdown style={{fontSize:"15px"}}>
                         <Dropdown.Toggle style={{display:"flex",justifyContent: "center",fontSize:"15px",width:"160px"}} variant="success" id="dropdown-basic">
-                            篩選標籤
+                            select {tag}
                         </Dropdown.Toggle>
                         <Dropdown.Menu style={{fontSize:"15px"}}>
                             <Dropdown.Item onClick={()=>getData({ select: "html" })}>Html</Dropdown.Item>

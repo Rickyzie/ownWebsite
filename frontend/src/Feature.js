@@ -6,6 +6,13 @@ import Footer from "./components/Footer";
 
 function Feature() {
     const { register, handleSubmit } = useForm();
+    const getMember = async () => {
+        await axios.get('/api/feature')
+        .then( (response) => {
+              response.data.status==='connect'?console.log(response):console.log(response);
+            })
+        .catch( (error) => console.log(error))}
+      getMember()
     const postSubmit = async (data) => {
         await axios.post('/api/store',data)
         .then( (response) => {

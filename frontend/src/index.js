@@ -4,6 +4,9 @@ import './index.css';
 import Home from './Home';
 import Detail from './components/Detail';
 import Feature from './Feature';
+import Login from './Login';
+import Sign from './components/Sign';
+
 import reportWebVitals from './reportWebVitals';
 import './bootstrap.min.css';
 import {
@@ -20,6 +23,8 @@ root.render(
         <Route path="/" element={<Home />}/>
         <Route path="/feature" element={<Feature />}/>
         <Route path="/Article/:id" element={<Detail/>} />
+        <Route path="/Login" element={<Login/>} />
+        <Route path="/Sign" element={<Sign/>} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

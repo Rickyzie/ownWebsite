@@ -1,13 +1,14 @@
 import express from "express"
 import session from "express-session"
 import {MongoClient } from "mongodb"
-// Replace the uri string with your MongoDB deployment's connection string.
+
 const uri ="mongodb+srv://a0935640996:aa24572880@nodejscluster.2uhcg.mongodb.net/test?retryWrites=true&w=majority";
 const client = new MongoClient(uri);
 
 const app = express();
 
-app.use(express.json())
+app.use(express.json());
+
 const notFoundList = [
   {
     _id: "notFound",
@@ -15,30 +16,62 @@ const notFoundList = [
     title: 'notFound',
     textarea: 'notFound'
   }
-]
+];
+
+app.use(session({
+  secret: 'mySecret',
+  name: 'name', // optional
+  saveUninitialized: false,
+  resave: true, 
+  cookie: {
+    maxAge: 30 * 24 * 60 * 60 * 1000
+  }
+}));
+
+function auth(req, res, next) {
+  if (req.session.name) {
+    next()
+  } else {
+  return res.send({name:'unconnect'})
+  }
+}
+
+// Replace the uri string with your MongoDB deployment's connection string.
+
+
+async function userCheck(req, res, next) {
+  try {
+    await client.connect();
+    const database = client.db('myWebsite');
+    const member = database.collection('member');
+    const query = req.body;
+    const customer = await member.findOne(query);
+    customer?res.send("此帳號或密碼已使用過"):next()
+  }catch(err){console.log(err)} 
+};
+
 async function dataCursor() {
   try {
     await client.connect();
     const database = client.db('myWebsite');
     const data = database.collection('text');
-    const cursor = data.find()
-    const allValues = await cursor.toArray()
-    return allValues
-  }catch(err){console.log(err)} 
-}
+    const cursor = data.find();
+    const allValues = await cursor.toArray();
+    return allValues;
+  }catch(err){console.log(err);}; 
+};
 
 async function dataSearch(obj) {
   try {
     await client.connect();
-    let regex = new RegExp(obj.search, 'g')
-    console.log(obj)
+    let regex = new RegExp(obj.search, 'g');
     const database = client.db('myWebsite');
     const data = database.collection('text');
-    const cursor = data.find({textarea : regex })
-    const allValues = await cursor.toArray()
-    return allValues
-  }catch(err){console.log(err)} 
-}
+    const cursor = data.find({textarea : regex });
+    const allValues = await cursor.toArray();
+    return allValues;
+  }catch(err){console.log(err);}; 
+};
 
 async function dataTag(obj) {
   try {
@@ -51,7 +84,7 @@ async function dataTag(obj) {
   }catch(err){console.log(err)} 
 }
 
-app.post('/api/store',async (req, res) => {
+app.post('/api/store',auth ,async (req, res) => {
   try{
     await client.connect();
     const database = client.db('myWebsite');
@@ -81,12 +114,46 @@ app.get("/api/Detail/:id",(req,res)=>{
 app.get("/api/search/",(req,res)=>{
   dataSearch(req.query).then(val=>{
     val.length>0?res.send(val):res.send(notFoundList)
- 
   });
 
 });
+//login sign
 
 
+app.get('/api/feature', auth, (req, res) => {
+  try{
+  const userStatus = {name:req.session.name,status:'connect'}
+  console.log(req.sessionID)
+  return res.send(userStatus)
+  }catch(err){console.log(err)}
+})
+
+app.post('/api/sign', userCheck,async (req, res) => {
+  try{
+    await client.connect(()=>console.log("/api/sign/connect"));
+    const database = client.db('myWebsite');
+    const member = database.collection('member');
+    member.insertOne(req.body,()=>console.log("successful insert"+req.body));
+    res.send("帳號密碼已新增成功")
+  }catch(err){console.log(err)}
+})
+
+app.post('/api/login', async (req, res) => {
+  try{
+    await client.connect();
+    const database = client.db('myWebsite');
+    const member = database.collection('member');
+    const query ={email:req.body.email , password:req.body.password} ;
+    const customer = await member.findOne(query);
+    if(customer){
+      console.log(customer)
+      req.session.name = customer.name;
+      return res.send({name:customer.name,status:"connect"});
+    }else{
+      return res.send("帳號密碼輸入錯誤")
+    }
+  }catch(err){console.log(err)}
+})
 
 const port = process.env.PORT || 5000;
 

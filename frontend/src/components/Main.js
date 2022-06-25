@@ -43,7 +43,6 @@ function Main() {
            numbers.push(i);
          };
          setNumbers(numbers)
-         console.log(numbers)
          setLoading(false)
     };  
 

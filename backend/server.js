@@ -119,6 +119,12 @@ app.get("/api/search/",(req,res)=>{
 });
 //login sign
 
+app.get('/api/logout', auth, (req, res) => {
+  try{
+    req.session.destroy();
+    return res.send({status:'connect'});
+  }catch(err){console.log(err)}
+})
 
 app.get('/api/feature', auth, (req, res) => {
   try{

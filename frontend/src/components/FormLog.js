@@ -1,19 +1,18 @@
-import React , {useState} from "react";
+import React , {useEffect, useState} from "react";
 import axios from "axios"
 import LoadingBox from "./LoadingBox"
 import {Form,Button, Container} from "react-bootstrap"
 import { useForm } from "react-hook-form";
 function FormLog() {
   const { register, handleSubmit } = useForm();
-  const [res,setRes] = useState("")
-  const [loading,setLoading] = useState(false)
+  const [res,setRes] = useState("");
+  const [loading,setLoading] = useState(false);
   const getMember = async () => {
     await axios.get('/api/feature')
     .then( (response) => {
           response.data.status==='connect'?window.location.href = "/feature":console.log(response);
         })
     .catch( (error) => console.log(error))}
-  getMember()
   const postData = async (data) => {
     setLoading(true)
     await axios.post('/api/login',data)
@@ -22,6 +21,9 @@ function FormLog() {
           setLoading(false)
         })
     .catch( (error) => console.log(error))}
+    useEffect(()=>{
+      getMember()
+    },[]);
   return (
     <Container className="justify-content-center" style={{display:"flex",marginTop:200}}>
       <Form onSubmit={handleSubmit((data) => data.email||data.password? postData(data): data)} className="w-50  text-white " style={{padding:30,boxShadow: "12px 12px 12px rgba(0, 0, 0, 0.7)",border:"solid"}}>

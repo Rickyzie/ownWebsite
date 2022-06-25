@@ -7,14 +7,14 @@ import axios from "axios"
 
 function Sign() {
     const { register, handleSubmit } = useForm();
-    const [res,setRes] = useState("")
-    const [loading,setLoading] = useState(false)
+    const [res,setRes] = useState("");
+    const [loading,setLoading] = useState(false);
     const postData = async (data) => {
         setLoading(true)
         await axios.post('/api/sign',data)
         .then( (response) => {
             setRes(response.data);
-            setLoading(false)
+            setLoading(false);
         })
         .catch( (error) => console.log(error))}
     return (

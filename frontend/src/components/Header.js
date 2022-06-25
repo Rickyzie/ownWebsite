@@ -1,7 +1,38 @@
 import React from "react";
-import {Navbar , Nav , Container ,Form,Button } from "react-bootstrap"
+import axios from "axios";
+import { useState, useEffect } from "react";
+import {Navbar , Nav , Container ,Button} from "react-bootstrap"
 
 function Header() {
+  const [status,setStatus] = useState("")
+  const [logoutButton,setlogoutButton] = useState(false)
+  const getMember = async () => {
+    await axios.get('/api/feature')
+    .then( (response) => {
+          if(response.data.status==='connect'){
+            setStatus(response.data.name);
+            setlogoutButton(true);
+          }else{
+            setlogoutButton(false);
+          };
+        })
+    .catch( (error) => console.log(error))}
+
+    const logOut = async () => {
+      await axios.get('/api/logout')
+      .then( (response) => {
+            if(response.data.status==='connect'){
+              setStatus(response.data.name);
+              setlogoutButton(false);
+            }else{
+              setlogoutButton(true);
+            };
+          })
+      .catch( (error) => console.log(error))}
+
+    useEffect(()=>{
+      getMember()
+    },[]);
     return (
       <>
       <Navbar bg="dark" variant="dark">
@@ -9,9 +40,12 @@ function Header() {
         <Navbar.Brand href="/">無名程式站</Navbar.Brand>
         <Nav className="me-auto">
           <Nav.Link href="/">Home</Nav.Link>
-          <Nav.Link href="/feature">Feature</Nav.Link>
+          <Nav.Link href="/feature">Submit</Nav.Link>
           <Nav.Link href="/Login">Login</Nav.Link>
+          <Nav.Link href="/Sign">Sign up</Nav.Link>
         </Nav>
+        歡迎登入,{status}
+        {logoutButton?<Button onClick = {()=>{logOut()}}>Logout</Button>:<div></div>}
         </Container>
       </Navbar>
     </>

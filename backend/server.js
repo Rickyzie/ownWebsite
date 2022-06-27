@@ -73,7 +73,7 @@ async function dataSearch(obj) {
   }catch(err){console.log(err);}; 
 };
 
-async function dataTag(obj) {
+async function selectTag(obj) {
   try {
     await client.connect();
     const database = client.db('myWebsite');
@@ -95,13 +95,17 @@ app.post('/api/store',auth ,async (req, res) => {
 
 })
 
-app.get("/api/data", (req,res) => {
+app.get("/api/select", (req,res) => {
   try {
-    console.log(req.query)
-    dataTag(req.query).then(val=>{
-      val.length>0?res.send(val):res.send(notFoundList)})
-  }catch(err){console.log(err)} 
-})
+    if(req.query.select==="all"){
+      selectTag({}).then(val=>{
+        val.length>0?res.send(val):res.send(notFoundList)});
+    }else{
+      selectTag(req.query).then(val=>{
+        val.length>0?res.send(val):res.send(notFoundList)})
+    };
+  }catch(err){console.log(err)} ;
+});
 
 app.get("/api/Detail/:id",(req,res)=>{
   dataCursor().then(val=>{

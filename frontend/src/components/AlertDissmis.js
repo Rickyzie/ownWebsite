@@ -7,9 +7,9 @@ function AlertDissmis() {
       <>
       <Header />
       <Container>
-        <Alert variant="danger">
+        <Alert >
           <Alert.Heading>Please Login!</Alert.Heading>
-          <Button   href="/Login">Login</Button>
+          <Button variant="danger"  href="/Login">Login</Button>
         </Alert>
       </Container>
       </>

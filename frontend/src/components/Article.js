@@ -11,7 +11,8 @@ function Article(props) {
                     <Card.Title>{text.title}</Card.Title>
                 </Card.Body>
             </Card>
-            :<Card>
+            :
+            <Card>
                 <Card.Header>{text.select}</Card.Header>
                 <Card.Body style={{height:"auto"}}>
                     <Card.Title>{text.title}</Card.Title>

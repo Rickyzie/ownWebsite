@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import {Card, Container} from "react-bootstrap"
+import {Card, Container, Button} from "react-bootstrap"
 import {useParams} from "react-router-dom";
 import Embed from "./Embed";
 import Header from "./Header"
@@ -9,27 +9,25 @@ import LoadingBox from "./LoadingBox";
 
 function Detail() {
     const { id } = useParams();
-    const [ texts , setTexts ] = useState({})
-    const [loading,setLoading] = useState(true)
-    const regex = /Rickyzie.+/
-
-   
+    const [ texts , setTexts ] = useState({});
+    const [loading,setLoading] = useState(true);
+    const regex = /Rickyzie.+/;
+    const getData = async () => {
+      try{
+      const {data}=await axios.get(`/api/Detail/${id}`);
+      console.log(data);
+      setTexts(data);
+      setLoading(false);
+      }catch(err){console.log(err)};
+   };
     useEffect(()=>{
-      const getData = async () => {
-        try{
-        const {data}=await axios.get(`/api/Detail/${id}`)
-        console.log(data)
-        setTexts(data)
-        setLoading(false)
-        }catch(err){console.log(err)}
-    }
       getData();
-    },[])
+    },[]);
     return (
       <Container>
       <Header />
       <Card>
-          <Card.Header>{texts.select}</Card.Header>
+          <Card.Header>{texts.select}<Button href ={`/Update/${id}`} variant="primary">More...</Button></Card.Header>
           <Card.Body style={{height:"auto"}}>
               <Card.Title>{texts.title}</Card.Title>
               <Card.Text style={{height:"auto"}}>

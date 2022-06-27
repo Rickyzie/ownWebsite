@@ -1,10 +1,9 @@
 import express from "express"
 import session from "express-session"
-import {MongoClient } from "mongodb"
+import {MongoClient,ObjectId } from "mongodb"
 
 const uri ="mongodb+srv://a0935640996:aa24572880@nodejscluster.2uhcg.mongodb.net/test?retryWrites=true&w=majority";
 const client = new MongoClient(uri);
-
 const app = express();
 
 app.use(express.json());
@@ -95,6 +94,24 @@ app.post('/api/store',auth ,async (req, res) => {
 
 })
 
+app.post('/api/replace/:id',auth ,async (req, res) => {
+  try{
+    console.log(1)
+    await client.connect();
+    const database = client.db('myWebsite');
+    const text = database.collection('text');
+    const objId = new ObjectId(req.params.id)
+    // create a query for a movie to update
+    const query = { _id: objId };
+    // create a new document that will be used to replace the existing document
+    const replacement = req.body;
+    const result = await text.replaceOne(query, replacement);
+    console.log(result)
+    res.send({status:"connect"})
+  }catch(err){console.log(err)}
+
+})
+
 app.get("/api/select", (req,res) => {
   try {
     if(req.query.select==="all"){
@@ -119,7 +136,14 @@ app.get("/api/search/",(req,res)=>{
   dataSearch(req.query).then(val=>{
     val.length>0?res.send(val):res.send(notFoundList)
   });
+});
 
+app.get("/api/search/:id",(req,res)=>{
+  console.log(req.params.id)
+  const objId = new ObjectId(req.params.id)
+  selectTag({_id:objId}).then(val=>{
+    val.length>0?res.send(val):res.send(notFoundList)
+  });
 });
 //login sign
 

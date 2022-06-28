@@ -27,7 +27,10 @@ function Detail() {
       <Container>
       <Header />
       <Card>
-          <Card.Header>{texts.select}<Button href ={`/Update/${id}`} variant="primary">More...</Button></Card.Header>
+        <Card.Header style={{display:"flex",justifyContent:"space-between", alignItems:"center", width:"auto", padding:"0px 10px"}}>
+            <p style={{marginTop:"12px"}} >{texts.select}</p>
+            <Button  href ={`/Update/${id}`} variant="primary">Edit...</Button>
+        </Card.Header>
           <Card.Body style={{height:"auto"}}>
               <Card.Title>{texts.title}</Card.Title>
               <Card.Text style={{height:"auto"}}>

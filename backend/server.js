@@ -145,6 +145,19 @@ app.get("/api/search/:id",(req,res)=>{
     val.length>0?res.send(val):res.send(notFoundList)
   });
 });
+
+app.get("/api/delete/:id",async (req,res)=>{
+  try{
+    await client.connect();
+    const database = client.db('myWebsite');
+    const text = database.collection('text');
+    const objId = new ObjectId(req.params.id)
+    const query = { _id: objId };
+    const result = await text.deleteOne(query);
+    console.log(result)
+    res.send({status:"connect"})
+  }catch(err){console.log(err)}
+});
 //login sign
 
 app.get('/api/logout', auth, (req, res) => {

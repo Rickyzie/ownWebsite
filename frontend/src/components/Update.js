@@ -7,6 +7,8 @@ import Header from "./Header";
 import Footer from "./Footer";
 import AlertDissmis from "./AlertDissmis";
 import LoadingBox from "./LoadingBox";
+import Popup from "./Popup";
+
 
 
 function Update() {
@@ -36,12 +38,18 @@ function Update() {
               response.data.status==='connect'?console.log("done"):console.log("bad");
             })
         .catch( (error) => console.log(error))}
+
+    const deleteContext = async () => {
+        await axios.get(`/api/delete/${id}`)
+        .then( (response) => {
+                response.data.status==='connect'?console.log("done"):console.log("bad");
+            })
+        .catch( (error) => console.log(error))}
     useEffect(()=>{
         getMember();
         searchData()
         console.log(defaultValue)
     },[])
-    if(login){
         return (
             <>
             <Header />
@@ -68,16 +76,17 @@ function Update() {
                     <Button variant="primary" type="submit" >
                         Submit
                     </Button>
+                    <Button onClick={()=>{deleteContext()}} variant="primary" type="submit" >
+                        delete
+                    </Button>
                 </Form>
             </Container>
              }
             <Footer />
+            <Popup login={login} />
             </>
-            
         );
-    }else{
-        return (<AlertDissmis />)
     }
-  }
+  
   
   export default Update;

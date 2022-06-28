@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios"
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import AlertDissmis from "./components/AlertDissmis";
+import Popup from "./components/Popup";
 
 function Feature() {
     const { register, handleSubmit } = useForm();
@@ -25,7 +25,6 @@ function Feature() {
     useEffect(()=>{
         getMember();
     })
-    if(login){
         return (
             <>
             <Header />
@@ -54,12 +53,9 @@ function Feature() {
                 </Form>
             </Container>
             <Footer />
+            <Popup login={login} />
             </>
-            
         );
-    }else{
-        return (<AlertDissmis />)
     }
-  }
   
   export default Feature;

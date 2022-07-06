@@ -3,9 +3,9 @@ import {Row,Image,Card,ListGroup,ListGroupItem } from "react-bootstrap"
 function Intro() {
     return (
         <>
-        <Row style={{display:"flex",justifyContent: "center"}}>
+        <Row style={{display:"flex",justifyContent: "center" }}>
             <Card style={{ width: '18rem' }}>
-                <div style={{display:"flex",justifyContent: "center"}}>
+                <div style={{display:"flex",justifyContent: "center", marginTop:"74.5px"}}>
                 <Image style={{ width: '50%' }} roundedCircle variant="top" src="https://media.gq.com.tw/photos/628b2ec34824d010bb0b3cd4/1:1/w_360,h_360,c_limit/165306325038.jpeg" />
                 </div>
             <Card.Body >

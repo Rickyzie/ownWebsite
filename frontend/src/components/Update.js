@@ -5,7 +5,6 @@ import {useParams} from "react-router-dom";
 import axios from "axios"
 import Header from "./Header";
 import Footer from "./Footer";
-import AlertDissmis from "./AlertDissmis";
 import LoadingBox from "./LoadingBox";
 import Popup from "./Popup";
 

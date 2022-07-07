@@ -11,7 +11,7 @@ function Main() {
     const [pages, setPages]=useState([]);
     const [page, setPage]=useState(0);
     const [tag, setTage]=useState("");
-    const [loading,setLoading] = useState(true); //Rendering componenent before implement useEffect , use loadingBox to avoiding map() blank array.
+    const [loading,setLoading] = useState(true); //Rendering componenent before implement useEffect , use loadingBox to avoiding mapping blank array.
     const [resizeTwo, setResizeTwo] = useState(false);
     const [resizeOne, setResizeOne] = useState(false);
     const {register, handleSubmit } = useForm();
@@ -75,26 +75,21 @@ function Main() {
 
                 <Col xs={12} sm={10} xxl={9} style={{padding:0}}>
                     <Form style ={{display:"flex"}} onSubmit={handleSubmit(data=>searchData(data))}>
+                        <Form.Select style ={{width:"120px"}} {...register("select")} aria-label="Default select example">
+                            <option value="all">all</option>
+                            <option value="html">html</option>
+                            <option value="css"> css</option>
+                            <option value="javascript">javascript</option>
+                            <option value="nodejs">nodejs</option>
+                            <option value="react">react</option>
+                            <option value="mongodb">mongodb</option>
+                        </Form.Select>
                         <Form.Control {...register("search")} type="text" placeholder="Search" />
                         <Button variant="primary" type="submit" >
                             Submit
                         </Button>
                         <div style={{width:"200%"}}></div>
                     </Form>
-
-                    <Dropdown style={{fontSize:"15px"}}>
-                        <Dropdown.Toggle style={{display:"flex",justifyContent: "center",fontSize:"15px",width:"160px"}} variant="success" id="dropdown-basic">
-                            select {tag}
-                        </Dropdown.Toggle>
-                        <Dropdown.Menu style={{fontSize:"15px"}}>
-                            <Dropdown.Item onClick={()=>selectTag({ select: "html" })}>Html</Dropdown.Item>
-                            <Dropdown.Item onClick={()=>selectTag({ select: "css" })}>Css</Dropdown.Item>
-                            <Dropdown.Item onClick={()=>selectTag({ select: "javascript" })}>Javascript</Dropdown.Item>
-                            <Dropdown.Item onClick={()=>selectTag({ select: "nodejs" })}>Nodejs</Dropdown.Item>
-                            <Dropdown.Item onClick={()=>selectTag({ select: "react" })}>React</Dropdown.Item>
-                            <Dropdown.Item onClick={()=>selectTag({ select: "mongodb" })}>Mongodb</Dropdown.Item>
-                        </Dropdown.Menu>
-                    </Dropdown>
 
                     {loading?<LoadingBox />:
                         pages[page].map((text)=>{

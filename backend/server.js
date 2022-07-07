@@ -66,7 +66,12 @@ async function dataSearch(obj) {
     let regex = new RegExp(obj.search, 'g');
     const database = client.db('myWebsite');
     const data = database.collection('text');
-    const cursor = data.find({textarea : regex });
+    let cursor = {};
+    if(obj.select==="all"){
+      cursor = data.find({textarea : regex });
+    }else{
+      cursor = data.find({select:obj.select,textarea : regex });
+    };
     const allValues = await cursor.toArray();
     return allValues;
   }catch(err){console.log(err);}; 
@@ -133,6 +138,7 @@ app.get("/api/Detail/:id",(req,res)=>{
 });
 
 app.get("/api/search/",(req,res)=>{
+  console.log(req.query);
   dataSearch(req.query).then(val=>{
     val.length>0?res.send(val):res.send(notFoundList)
   });

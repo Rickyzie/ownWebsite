@@ -23,6 +23,7 @@ function Header() {
       .then( (response) => {
             if(response.data.status==='connect'){
               setStatus(response.data.name);
+              window.location.href = "/"
               setlogoutButton(false);
             }else{
               setlogoutButton(true);
@@ -44,7 +45,7 @@ function Header() {
           <Nav.Link href="/Login">Login</Nav.Link>
           <Nav.Link href="/Sign">Sign up</Nav.Link>
         </Nav>
-        歡迎登入,{status}
+        歡迎登入 {status}
         {logoutButton?<Button onClick = {()=>{logOut()}}>Logout</Button>:<div></div>}
         </Container>
       </Navbar>

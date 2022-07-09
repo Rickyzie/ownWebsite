@@ -34,14 +34,15 @@ function Update() {
     const postSubmit = async (data) => {
         await axios.post(`/api/replace/${id}`,data)
         .then( (response) => {
-              response.data.status==='connect'?console.log("done"):console.log("bad");
+              response.data.status==='connect'?alert("Your text is being uploaded!"):alert("Error");
             })
         .catch( (error) => console.log(error))}
 
     const deleteContext = async () => {
         await axios.get(`/api/delete/${id}`)
         .then( (response) => {
-                response.data.status==='connect'?console.log("done"):console.log("bad");
+                response.data.status==='connect'?alert("Your text is being deleted!"):alert("Error");
+                window.location.href = "/";
             })
         .catch( (error) => console.log(error))}
     useEffect(()=>{
@@ -57,12 +58,13 @@ function Update() {
                 <Form onSubmit={handleSubmit(data=>postSubmit(data))}>
                     <Form.Select {...register("select")} aria-label="Default select example">
                         <option>select category</option>
-                        <option value="html">Html</option>
-                        <option value="css">Css</option>
-                        <option value="javascript">Javascript</option>
-                        <option value="nodejs">Nodejs</option>
-                        <option value="react">React</option>
-                        <option value="mongodb">Mongodb</option>
+                        <option value="owner">owner</option>
+                        <option value="html">html</option>
+                        <option value="css">css</option>
+                        <option value="javascript">javascript</option>
+                        <option value="nodejs">nodejs</option>
+                        <option value="react">react</option>
+                        <option value="mongodb">mongodb</option>
                     </Form.Select>
                     <Form.Group className="mb-3" >
                         <Form.Label>title</Form.Label>
@@ -72,14 +74,20 @@ function Update() {
                         <Form.Label>textarea</Form.Label>
                         <Form.Control style={{height:"960px"}} {...register("textarea")} as="textarea" rows={3}  placeholder="textarea" defaultValue={defaultValue.textarea}></Form.Control>
                     </Form.Group>
-                    <Button variant="primary" type="submit" >
-                        Submit
-                    </Button>
-                    <Button onClick={()=>{deleteContext()}} variant="primary" type="submit" >
-                        delete
-                    </Button>
+                    {login?
+                        <>
+                            <Button variant="primary" type="submit" >
+                                Submit
+                            </Button>
+                        </>
+                        :""
+                    }
                 </Form>
+                {login?<Button onClick={()=>{deleteContext()}} style={{position:"relative",bottom:"38px",left:"100px",width:"75px"}} variant="primary" type="submit" >
+                    delete
+                </Button>:""}
             </Container>
+            
              }
             <Footer />
             <Popup login={login} />

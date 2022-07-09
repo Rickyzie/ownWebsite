@@ -10,19 +10,21 @@ function FormLog() {
   const getMember = async () => {
     await axios.get('/api/feature')
     .then( (response) => {
-          response.data.status==='connect'?window.location.href = "/feature":console.log(response);
+          response.data.status==='connect'?window.location.href = "/":console.log(response);
         })
     .catch( (error) => console.log(error))}
+    
   const postData = async (data) => {
     setLoading(true)
     await axios.post('/api/login',data)
     .then( (response) => {
-          response.data.status==='connect'?window.location.href = "/feature":setRes("帳號或密碼輸入錯誤");;
-          setLoading(false)
+          response.data.status==='connect'?window.history.back():setRes("帳號或密碼輸入錯誤");
+          
+          setLoading(false);
         })
     .catch( (error) => console.log(error))}
     useEffect(()=>{
-      getMember()
+      getMember();
     },[]);
   return (
     <Container className="justify-content-center" style={{display:"flex",marginTop:200}}>

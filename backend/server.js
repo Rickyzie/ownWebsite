@@ -4,8 +4,8 @@ import {MongoClient,ObjectId } from "mongodb"
 
 const uri ="mongodb+srv://a0935640996:aa24572880@nodejscluster.2uhcg.mongodb.net/test?retryWrites=true&w=majority";
 const client = new MongoClient(uri);
-const app = express();
 
+const app = express();
 app.use(express.json());
 
 const notFoundList = [
@@ -16,6 +16,8 @@ const notFoundList = [
     textarea: 'notFound'
   }
 ];
+
+
 
 app.use(session({
   secret: 'mySecret',
@@ -199,7 +201,6 @@ app.post('/api/login', async (req, res) => {
     const query ={email:req.body.email , password:req.body.password} ;
     const customer = await member.findOne(query);
     if(customer){
-      console.log(customer)
       req.session.name = customer.name;
       return res.send({name:customer.name,status:"connect"});
     }else{

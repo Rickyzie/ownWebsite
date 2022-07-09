@@ -9,6 +9,7 @@ import Popup from "./components/Popup";
 function Feature() {
     const { register, handleSubmit } = useForm();
     const [login , setLogin] = useState(false);
+    const [status , setStatus] = useState(false);
     const getMember = async () => {
         await axios.get('/api/feature')
         .then( (response) => {
@@ -19,7 +20,7 @@ function Feature() {
     const postSubmit = async (data) => {
         await axios.post('/api/store',data)
         .then( (response) => {
-              response.data.status==='connect'?console.log("done"):console.log("bad");
+              response.data.status==='connect'?alert("Your text is being uploaded!"):alert("Error");
             })
         .catch( (error) => console.log(error))}
     useEffect(()=>{
@@ -32,12 +33,13 @@ function Feature() {
                 <Form onSubmit={handleSubmit(data=>postSubmit(data))}>
                     <Form.Select {...register("select")} aria-label="Default select example">
                         <option>select category</option>
-                        <option value="html">Html</option>
-                        <option value="css">Css</option>
-                        <option value="javascript">Javascript</option>
-                        <option value="nodejs">Nodejs</option>
-                        <option value="react">React</option>
-                        <option value="mongodb">Mongodb</option>
+                        <option value="owner">owner</option>
+                        <option value="html">html</option>
+                        <option value="css">css</option>
+                        <option value="javascript">javascript</option>
+                        <option value="nodejs">nodejs</option>
+                        <option value="react">react</option>
+                        <option value="mongodb">mongodb</option>
                     </Form.Select>
                     <Form.Group className="mb-3" >
                         <Form.Label>title</Form.Label>
@@ -47,9 +49,7 @@ function Feature() {
                         <Form.Label>textarea</Form.Label>
                         <Form.Control style={{height:"960px"}} {...register("textarea")} as="textarea" rows={3}  placeholder="textarea" ></Form.Control>
                     </Form.Group>
-                    <Button variant="primary" type="submit" >
-                        Submit
-                    </Button>
+                    {login?(<Button variant="primary" type="submit" >submit</Button>):""}
                 </Form>
             </Container>
             <Footer />

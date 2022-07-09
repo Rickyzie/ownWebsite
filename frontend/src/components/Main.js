@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useCallback }  from "react";
+import React, { useState, useEffect }  from "react";
 import axios from "axios"
 import Intro from "./Intro";
 import {Container,Row,Col,ButtonToolbar,ButtonGroup,Button,Form} from "react-bootstrap"
@@ -10,7 +10,6 @@ function Main() {
     const [numbers, setNumbers]=useState([]);
     const [pages, setPages]=useState([]);
     const [page, setPage]=useState(0);
-    const [tag, setTage]=useState("");
     const [loading,setLoading] = useState(true); //Rendering componenent before implement useEffect , use loadingBox to avoiding mapping blank array.
     const [resizeTwo, setResizeTwo] = useState(false);
     const [resizeOne, setResizeOne] = useState(false);
@@ -44,14 +43,6 @@ function Main() {
         setNumbers(numbers)
     };
 
-    const selectTag = async (obj) => {
-        setLoading(true)
-        const {data}=await axios.get('/api/select',{ params: obj});
-        slicePage(data);
-        setTage(obj.select)
-        setLoading(false)
-    };  
-
     const searchData = async (obj) => {
       try{
         setLoading(true)
@@ -62,6 +53,13 @@ function Main() {
     };
 
     useEffect(()=>{ 
+        const selectTag = async (obj) => {
+            setLoading(true)
+            const {data}=await axios.get('/api/select',{ params: obj});
+            slicePage(data);
+            setLoading(false)
+        };  
+    
         selectTag({select:"all"}); //mongoDB seaching undefined will return all data in database
         window.onresize = handleRWD;
         handleRWD();

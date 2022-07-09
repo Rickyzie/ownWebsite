@@ -9,7 +9,6 @@ import Popup from "./components/Popup";
 function Feature() {
     const { register, handleSubmit } = useForm();
     const [login , setLogin] = useState(false);
-    const [status , setStatus] = useState(false);
     const getMember = async () => {
         await axios.get('/api/feature')
         .then( (response) => {

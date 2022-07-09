@@ -12,15 +12,16 @@ function Detail() {
     const [ texts , setTexts ] = useState({});
     const [loading,setLoading] = useState(true);
     const regex = /Rickyzie.+/;
-    const getData = async () => {
-      try{
-      const {data}=await axios.get(`/api/Detail/${id}`);
-      console.log(data);
-      setTexts(data);
-      setLoading(false);
-      }catch(err){console.log(err)};
-   };
+    
     useEffect(()=>{
+      const getData = async () => {
+        try{
+        const {data}=await axios.get(`/api/Detail/${id}`);
+        console.log(data);
+        setTexts(data);
+        setLoading(false);
+        }catch(err){console.log(err)};
+     };
       getData();
     },[]);
     return (

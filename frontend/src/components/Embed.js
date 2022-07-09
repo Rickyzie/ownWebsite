@@ -1,4 +1,3 @@
-import Frame from 'react-frame-component';
 import ReactEmbedGist from 'react-embed-gist';
 import LoadingBox from './LoadingBox';
 

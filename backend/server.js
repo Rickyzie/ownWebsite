@@ -122,7 +122,7 @@ app.post('/api/replace/:id',auth ,async (req, res) => {
 app.get("/api/select", (req,res) => {
   try {
     if(req.query.select==="all"){
-      selectTag({}).then(val=>{
+      selectTag({}).then((val)=>{
         val.length>0?res.send(val):res.send(notFoundList)});
     }else{
       selectTag(req.query).then(val=>{
@@ -132,7 +132,7 @@ app.get("/api/select", (req,res) => {
 });
 
 app.get("/api/Detail/:id",(req,res)=>{
-  dataCursor().then(val=>{
+  dataCursor().then((val)=>{
     const found = val.find(x=>x._id.toString()===req.params.id);
     found?res.send(found):res.send("not found");
   });
@@ -141,7 +141,7 @@ app.get("/api/Detail/:id",(req,res)=>{
 
 app.get("/api/search/",(req,res)=>{
   console.log(req.query);
-  dataSearch(req.query).then(val=>{
+  dataSearch(req.query).then((val)=>{
     val.length>0?res.send(val):res.send(notFoundList)
   });
 });
@@ -149,7 +149,7 @@ app.get("/api/search/",(req,res)=>{
 app.get("/api/search/:id",(req,res)=>{
   console.log(req.params.id)
   const objId = new ObjectId(req.params.id)
-  selectTag({_id:objId}).then(val=>{
+  selectTag({_id:objId}).then((val)=>{
     val.length>0?res.send(val):res.send(notFoundList)
   });
 });

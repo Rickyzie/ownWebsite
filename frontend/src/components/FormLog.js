@@ -14,13 +14,13 @@ function FormLog() {
     hash.update(data.password);
     data = {...data,password:hash.digest('hex')};
     await axios.post('/api/login',data)
-    .then( (response) => {
+    .then((response) => {
           response.data.status==='connect'?window.location.href = "/":setRes("帳號或密碼輸入錯誤");
           
           setLoading(false);
         })
-    .catch( (error) => console.log(error))};
-   
+    .catch((error)=>console.log(error))};
+
     useEffect(()=>{
       const getMember = async () => {
         await axios.get('/api/feature')

@@ -10,17 +10,31 @@ function Sign() {
     const { register, handleSubmit } = useForm();
     const [res,setRes] = useState("");
     const [loading,setLoading] = useState(false);
+    const nameTypeRegex = /^(?!_)(?!.*?_$)[a-zA-Z0-9_\u4e00-\u9fa5]{3,20}$/;
+    const emailTypeRegex = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
+    const passwordTypeRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,12}$/;
     const postData = async (data) => {
-        setLoading(true)
-        const hash = new SHA3(256);
-        hash.update(data.password);
-        data = {...data,password:hash.digest('hex')};
-        await axios.post('/api/sign',data)
-        .then( (response) => {
-            setRes(response.data);
-            setLoading(false);
-        })
-        .catch( (error) => console.log(error))
+        if(nameTypeRegex.test(data.name)&&emailTypeRegex.test(data.email)&&passwordTypeRegex.test(data.password)&&true){
+            setLoading(true)
+            const hash = new SHA3(256);
+            hash.update(data.password);
+            data = {...data,password:hash.digest('hex')};
+            await axios.post('/api/sign',data)
+            .then( (response) => {
+                setRes(response.data);
+                setLoading(false);
+            }).catch( (error) => console.log(error))
+        }else{
+            if(!nameTypeRegex.test(data.name)){
+                return alert("請填入中英文三到二十個字元,不可有空白");
+            };
+            if(!emailTypeRegex.test(data.email)){
+                return alert("請填入正確信箱格式");
+            };
+            if(!passwordTypeRegex.test(data.password)){
+                return alert("請填入八到十二字元混合數字及至少一位大寫英文");
+            };
+        };
     };
     return (
         <div>
@@ -33,7 +47,7 @@ function Sign() {
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>電子郵件</Form.Label>
-                        <Form.Control {...register("email")} placeholder="Enter email" />
+                        <Form.Control {...register("email")} type="email"  placeholder="Enter email" />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicPassword">

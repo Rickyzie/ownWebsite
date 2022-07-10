@@ -22,6 +22,5 @@ function Article(props) {
             }
         </div>
     );
-  }
-  
-  export default Article;
+};
+export default Article;

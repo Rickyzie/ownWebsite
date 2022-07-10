@@ -21,7 +21,7 @@ function Detail() {
         setTexts(data);
         setLoading(false);
         }catch(err){console.log(err)};
-     };
+      };
       getData();
     },[]);
     return (

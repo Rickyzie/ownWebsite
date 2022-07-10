@@ -17,17 +17,17 @@ function Update() {
     const [login , setLogin] = useState(false);
     const [defaultValue, setDefaultValue] =  useState({});
 
-      
     const postSubmit = async (data) => {
         await axios.post(`/api/replace/${id}`,data)
         .then( (response) => {
-              response.data.status==='connect'?alert("Your text is being uploaded!"):alert("Error");
-              window.location.href = "/";
+            response.data.status==='connect'?alert("Your text is being uploaded!"):alert("Error");
+            window.location.href = "/";
             })
         .catch( (error) => console.log(error))
     };
 
     const deleteContext = async () => {
+        
         await axios.get(`/api/delete/${id}`)
         .then( (response) => {
                 response.data.status==='connect'?alert("Your text is being deleted!"):alert("Error");
@@ -39,18 +39,18 @@ function Update() {
     useEffect(()=>{
         const searchData = async () => {
             try{
-              setLoading(true)
-              const {data}=await axios.get(`/api/search/${id}`)
-              setDefaultValue(data[0])
-              setLoading(false)
+            setLoading(true)
+            const {data}=await axios.get(`/api/search/${id}`)
+            setDefaultValue(data[0])
+            setLoading(false)
             }catch(err){console.log(err)}  
-          };
+        };
         const getMember = async () => {
             await axios.get('/api/feature')
             .then( (response) => {
-                  response.data.status==='connect'?setLogin(true):console.log(response);
+                response.data.status==='connect'?setLogin(true):console.log(response);
                 })
-            .catch( (error) => console.log(error))
+            .catch((error) => console.log(error))
         };
         getMember();
         searchData()
@@ -92,13 +92,10 @@ function Update() {
                     delete
                 </Button>:""}
             </Container>
-            
-             }
+            }
             <Footer />
             <Popup login={login} />
             </>
         );
     }
-  
-  
-  export default Update;
+export default Update;

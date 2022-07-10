@@ -3,12 +3,16 @@ import axios from "axios"
 import LoadingBox from "./LoadingBox"
 import {Form,Button, Container} from "react-bootstrap"
 import { useForm } from "react-hook-form";
+import { SHA3 } from 'sha3';
 function FormLog() {
   const { register, handleSubmit } = useForm();
   const [res,setRes] = useState("");
   const [loading,setLoading] = useState(false);
   const postData = async (data) => {
     setLoading(true)
+    const hash = new SHA3(256);
+    hash.update(data.password);
+    data = {...data,password:hash.digest('hex')};
     await axios.post('/api/login',data)
     .then( (response) => {
           response.data.status==='connect'?window.location.href = "/":setRes("帳號或密碼輸入錯誤");
@@ -16,7 +20,7 @@ function FormLog() {
           setLoading(false);
         })
     .catch( (error) => console.log(error))};
-    
+   
     useEffect(()=>{
       const getMember = async () => {
         await axios.get('/api/feature')

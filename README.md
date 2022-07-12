@@ -22,6 +22,7 @@ wepack.config.js設計proxy 避免CORS機制阻擋
 wepack.config.js與.babelrc 設計打包設定黨
 Bootstrap grid and breakpoint 應用  
 Effect Hook 與State Hook 渲染機制應用  
+利用Session 與Cookie 機制實現保存使用者狀態之登入功能  
 帳號密碼送出前正則表達式檢查運用  
 SHA-3密碼加密運用  
 

@@ -1,4 +1,7 @@
 # 文章上傳網站
+  
+![螢幕擷取畫面 2022-07-12 192756](https://user-images.githubusercontent.com/95478695/178481407-8e549992-b559-47b7-a138-0d094b8db6fe.png)
+
 
 利用 ReactJS Bootstrap MongoDB NodeJS express 完成RWD響應式的動態網站  
 
